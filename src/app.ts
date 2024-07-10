@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import express from 'express';
 import dotenv from 'dotenv';
 import v1Routes from './routes/v1';

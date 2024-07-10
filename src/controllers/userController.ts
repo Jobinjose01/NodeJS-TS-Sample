@@ -1,12 +1,24 @@
 import { Request, Response } from 'express';
 import { UserService } from '../services/userService';
+import { controller} from 'inversify-express-utils';
+import { handleUserResponse } from '../responseHandlers/UserResponseHandler';
 import { User } from '../models/User';
 import bcrypt from 'bcrypt';
+import { inject, injectable } from 'inversify';
 
-const userService = new UserService();
-
+@injectable()
 export class UserController {
-  async registerUser(req: Request, res: Response): Promise<void> {
+  
+  
+  private userService: UserService;
+
+  constructor(@inject(UserService) userService: UserService) {
+    this.userService = userService;
+  }
+
+
+  async createUser(req: Request, res: Response): Promise<void> {
+    
     const { firstName, lastName, email, phone, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
     const userData: User = {
@@ -20,11 +32,12 @@ export class UserController {
     };
 
     try {
-      const createdUser = await userService.createUser(userData);
-      res.status(201).json({ message: 'User created successfully', user: createdUser });
+      const createdUser = await this.userService.createUser(userData);
+      res.status(201).json({ message: 'User created successfully', user: handleUserResponse(createdUser) });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Internal server error' });
     }
   }
+  
 }
