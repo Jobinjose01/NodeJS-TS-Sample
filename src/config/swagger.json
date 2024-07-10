@@ -1,0 +1,99 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Dveloper API Documentation",
+      "version": "1.0.0",
+      "description": "API documentation for your project"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:3000",
+        "description": "Development server"
+      }
+    ],
+    "paths": {
+      "/api/v1/user/register": {
+        "post": {
+          "summary": "Register a new user",
+          "tags": ["User"],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "firstName": {
+                      "type": "string"
+                    },
+                    "lastName": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "phone": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["firstName", "lastName", "email", "phone", "password"]
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "User created successfully",
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "success": {
+                      "summary": "Example of a successful response",
+                      "value": {
+                        "message": "User created successfully",
+                        "user": {
+                          "id": 5,
+                          "firstName": "John",
+                          "lastName": "Doe",
+                          "email": "john.doe3@example.com",
+                          "phone": "1234567890",
+                          "createdAt": "2024-07-10T13:45:27.487Z",
+                          "updatedAt": "2024-07-10T13:45:27.487Z"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request",
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "error": {
+                      "summary": "Example of an error response",
+                      "value": {
+                        "status": "fail",
+                        "errors": [
+                          {
+                            "field": "email",
+                            "message": "Email is already in use",
+                            "location": "body"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
