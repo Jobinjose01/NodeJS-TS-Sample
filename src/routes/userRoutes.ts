@@ -2,7 +2,7 @@ import { Router,Request,Response, NextFunction } from 'express';
 import { UserController } from '../controllers/userController';
 import { userUpdateValidationRules, userValidationRules } from '../validators/userValidator';
 import { validate } from '../middlewares/validate';
-import container from "../config/inversify.config"
+import container from "../config/inversifyConfig"
 
 const router = Router();
 const userController = container.get<UserController>(UserController);
