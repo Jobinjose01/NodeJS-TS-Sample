@@ -46,8 +46,20 @@ export class UserService {
         data: data,          
       });
       return updatedUser;
-    } catch (error) {
+    } catch (error) {      
       throw new Error('Failed to update user');
+    }
+  }
+
+  async deleteUser(userId: number): Promise<void> {
+    try {     
+      await prisma.user.delete({
+        where: {
+          id: userId,
+        },
+      });
+    } catch (error) {
+      throw new Error(`Failed to delete user`);
     }
   }
   

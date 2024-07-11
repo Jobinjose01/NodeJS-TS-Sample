@@ -191,7 +191,35 @@
             }
           }
         }
-      }
+      },
+      "delete": {
+          "tags": [
+            "User"
+          ],
+          "summary": "Delete a user by ID",
+          "description": "Deletes a user with the given ID.",
+          "operationId": "deleteUser",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "ID of the user to delete",
+              "schema": {
+                "type": "integer",
+                "format": "int64"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "User deleted successfully"
+            },
+            "500": {
+              "description": "Internal server error"
+            }
+          }
+        }
     },
     "/api/v1/user/all": {
       "get": {

@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import v1Routes from './routes/v1';
 import { PrismaClient } from '@prisma/client';
 import setupSwagger from './config/swaggerConfig';
+import { errorHandler } from './middlewares/errorHandler';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -13,10 +14,10 @@ const prisma = new PrismaClient();
 
 app.use(express.json());
 app.use(v1Routes);
-
 // Swagger setup
 setupSwagger(app);
 
+app.use(errorHandler);
 // Prisma clean shutdown
 process.on('SIGINT', async () => {
   await prisma.$disconnect();
