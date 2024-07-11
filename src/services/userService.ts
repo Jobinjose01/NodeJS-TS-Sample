@@ -29,6 +29,27 @@ export class UserService {
       throw new Error('Failed to fetch user by ID');
     }
   }
+
+  async getAllUsers(): Promise<User[]> {
+    try {
+      const users = await prisma.user.findMany();
+      return users;
+    } catch (error) {
+      throw new Error('Failed to fetch all users');
+    }
+  }
+
+  async updateUser(userId: number, data: Partial<User>): Promise<User | null> {
+    try {
+      const updatedUser = await prisma.user.update({
+        where: { id: userId },
+        data: data,          
+      });
+      return updatedUser;
+    } catch (error) {
+      throw new Error('Failed to update user');
+    }
+  }
   
   
 }

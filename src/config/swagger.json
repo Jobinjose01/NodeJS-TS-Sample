@@ -21,31 +21,8 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "firstName": {
-                      "type": "string",
-                      "default": "John"
-                    },
-                    "lastName": {
-                      "type": "string",
-                      "default": "Doe"
-                    },
-                    "email": {
-                      "type": "string",
-                      "default": "John@gmail.com"
-                    },
-                    "phone": {
-                      "type": "string",
-                      "default": "1234567890"
-                    },
-                    "password": {
-                      "type": "string",
-                      "default": "123456"
-                    }
-                  },
-                  "required": ["firstName", "lastName", "email", "phone", "password"]
-                }
+                  "$ref": "#/definitions/User"
+                }              
               }
             }
           },
@@ -59,7 +36,7 @@
                       "summary": "Example of a successful response",
                       "value": {
                         "message": "User created successfully",
-                        "user": {
+                        "result": {
                           "id": 5,
                           "firstName": "John",
                           "lastName": "Doe",
@@ -99,7 +76,7 @@
           }
         }
       },
-    "/api/v1/user/{id}": {
+    "/api/v1/user/{id}": {      
       "get": {
         "summary": "Get user by ID",
         "description": "Endpoint to retrieve a user by ID",
@@ -115,39 +92,27 @@
         "responses": {
           "200": {
             "description": "User found",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "user": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "integer"
-                    },
-                    "firstName": {
-                      "type": "string"
-                    },
-                    "lastName": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "phone": {
-                      "type": "string"
-                    },
-                    "createdAt": {
-                      "type": "string",
-                      "format": "date-time"
-                    },
-                    "updatedAt": {
-                      "type": "string",
-                      "format": "date-time"
+            "content": {
+                "application/json": {
+                  "examples": {
+                    "success": {
+                      "summary": "Example of a successful response",
+                      "value": {
+                        "message": "User data fetched successfully",
+                        "result": {
+                          "id": 5,
+                          "firstName": "John",
+                          "lastName": "Doe",
+                          "email": "john.doe3@example.com",
+                          "phone": "1234567890",
+                          "createdAt": "2024-07-10T13:45:27.487Z",
+                          "updatedAt": "2024-07-10T13:45:27.487Z"
+                        }
+                      }
                     }
                   }
                 }
               }
-            }
           },
           "404": {
             "description": "User not found"
@@ -156,9 +121,198 @@
             "description": "Internal server error"
           }
         }
+      },
+      "put": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Update an existing user",
+        "description": "Updates a user with the given ID.",
+        "operationId": "updateUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the user to update",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }          
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/User"
+              }              
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User updated successfully",
+            "schema": {
+              "$ref": "#/definitions/UserResponse"
+            },
+            "examples": {
+              "application/json": {
+                "message": "User updated successfully",
+                "result": {
+                  "id": 1,
+                  "firstName": "John",
+                  "lastName": "Doe",
+                  "email": "john.doe@example.com",
+                  "phone": "1234567890",
+                  "createdAt": "2024-07-10T11:59:56.412Z",
+                  "updatedAt": "2024-07-10T11:59:56.412Z"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/user/all": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get all users",
+        "description": "Retrieve all users",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+                "application/json": {
+                  "examples": {
+                    "success": {
+                      "summary": "Example of a successful response",
+                      "value": {
+                        "message": "User data fetched successfully",
+                        "result": [
+                          {
+                          "id": 5,
+                          "firstName": "John",
+                          "lastName": "Doe",
+                          "email": "john.doe3@example.com",
+                          "phone": "1234567890",
+                          "createdAt": "2024-07-10T13:45:27.487Z",
+                          "updatedAt": "2024-07-10T13:45:27.487Z"
+                          },
+                          {
+                          "id": 6,
+                          "firstName": "John",
+                          "lastName": "Doe",
+                          "email": "john.doe6@example.com",
+                          "phone": "1234567890",
+                          "createdAt": "2024-07-10T13:45:27.487Z",
+                          "updatedAt": "2024-07-10T13:45:27.487Z"
+                          }
+                      ]
+                      }
+                    }
+                  }
+                }
+              }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    } 
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "required": [
+        "firstName",
+        "lastName",
+        "email",
+        "phone"
+      ],
+      "properties": {
+        "firstName": {
+          "type": "string",
+          "default": "John"
+        },
+        "lastName": {
+          "type": "string",
+          "default": "Doe"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "default": "JohnDoe@gmail.com"
+        },
+        "phone": {
+          "type": "string",
+          "default": "1234567890"
+        },
+        "password": {
+          "type": "string",
+          "default": "123456"
+        }
+      }
+    },
+    "UserResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "firstName": {
+          "type": "string",
+          "default": "John"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
       }
     }
-  
-    }
+  }
   }
   
