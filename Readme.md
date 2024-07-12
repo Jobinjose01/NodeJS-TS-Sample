@@ -10,6 +10,10 @@
 
 `npm run dev`
 
+## Take the Build
+
+`npm run build`
+
 
 ## Prisma ORM
 
@@ -19,5 +23,5 @@
 
 ## Swagger URL
 
-`localhost:PORT/api-docs`
+`http://localhost:PORT/api-docs`
 

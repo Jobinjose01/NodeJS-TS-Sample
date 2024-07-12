@@ -50,7 +50,7 @@ export const userUpdateValidationRules = () => {
         if (!req.params || !req.params.id) {
           throw new Error('User ID is required');
         }
-        const userId = parseInt(req.params.id, 10);
+        const userId = parseInt(req.params.id);
         const user = await prisma.user.findUnique({
           where: { email },
         });

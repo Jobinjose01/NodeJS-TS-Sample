@@ -1,17 +1,22 @@
 import { Request, Response, NextFunction } from 'express';
 import { validationResult } from 'express-validator';
 import { formatErrors } from '../utils/errorFormatter';
+import logger from '../utils/logger';
 
 export const errorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
   if(process.env.APP_DEBUG){
     console.error(err); // Log the error for debugging
+  }
+  if(process.env.ERROR_LOG){
+    logger.error(err);
   }
 
   if (err instanceof Error) {
     
     return res.status(500).json({
       status: 'error',
-      message: err.message
+      error: err.message,
+      message : 'Record Not found!'
     });
   }
 
