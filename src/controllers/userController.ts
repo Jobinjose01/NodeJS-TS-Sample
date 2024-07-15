@@ -40,26 +40,29 @@ export class UserController {
   }
 
   async updateUser(req: Request, res: Response, next: NextFunction): Promise<void> {
-    const userId = parseInt(req.params.id); // Extract user ID from request params
+    const userId = parseInt(req.params.id);
     const { firstName, lastName, email, phone, password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
 
-    const userDataToUpdate: Partial<User> = {
-      firstName,
-      lastName,
-      email,
-      phone,
-      password : hashedPassword,
-      updatedAt: new Date()
-    };
+    try{
 
-    try {
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      const userDataToUpdate: Partial<User> = {
+        firstName,
+        lastName,
+        email,
+        phone,
+        password : hashedPassword,
+        updatedAt: new Date()
+      };   
+      
       const updatedUser = await this.userService.updateUser(userId, userDataToUpdate);
       if (!updatedUser) {
         res.status(404).json({ message: 'User not found' });
         return;
       }
-      res.status(200).json({ message: 'User updated successfully', result: handleUserResponse(updatedUser) });
+      res.status(200).json({ message: 'User updated successfully', result: handleUserResponse(updatedUser) }); 
+     
     } catch (error) {
         next(error);
     }

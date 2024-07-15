@@ -14,6 +14,10 @@
 
 `npm run build`
 
+## Unit Tesing
+
+`npm run test`
+
 
 ## Prisma ORM
 
