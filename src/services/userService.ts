@@ -28,19 +28,14 @@ export class UserService {
   }
 
   async updateUser(userId: number, data: Partial<User>): Promise<User | null> {
-    try{
       const updatedUser = await prisma.user.update({
         where: { id: userId },
         data: data,          
       });
       return updatedUser;
-    }catch(error){
-      throw(error);
-    }
   }
 
   async deleteUser(userId: number): Promise<void> {
-
       await prisma.user.delete({
         where: {
           id: userId,

@@ -1,9 +1,10 @@
-FROM node:20-alpine
+FROM node:22
 
 WORKDIR /usr/src/app
 
 # Copy package files and install dependencies
 COPY package*.json ./
+RUN rm -rf node_modules
 RUN npm install
 
 # Create the logs directory and set permissions
