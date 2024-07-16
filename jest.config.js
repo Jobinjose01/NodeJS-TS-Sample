@@ -1,6 +1,7 @@
 module.exports = {
     preset: 'ts-jest',
     testEnvironment: 'node',
+    setupFiles: ['<rootDir>/src/config/jest.setup.ts'],
     roots: ['<rootDir>/src'],
     collectCoverage: true,
     coverageDirectory: 'coverage',

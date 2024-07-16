@@ -1,5 +1,6 @@
 import { body, param, ValidationChain } from 'express-validator';
 import { PrismaClient } from '@prisma/client';
+import i18n from 'i18n';
 
 const prisma = new PrismaClient();
 
@@ -23,7 +24,7 @@ export const userValidationRules = (): ValidationChain[] => {
           where: { email },
         });
         if (user) {
-          throw new Error('Email is already in use');
+          throw new Error(i18n.__('user.EMAIL_ALREADY_TAKEN'));
         }
         return true;
       }),
@@ -55,7 +56,7 @@ export const userUpdateValidationRules = () => {
           where: { email },
         });
         if (user && user.id !== userId) {
-          throw new Error('Email is already in use');
+          throw new Error(i18n.__('user.EMAIL_ALREADY_TAKEN'));
         }
       }),
     body('phone').isString().withMessage('Phone number must be a string'),

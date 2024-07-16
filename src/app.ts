@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import express from 'express';
 import dotenv from 'dotenv';
+import i18n from './config/i18n';
 import v1Routes from './routes/v1';
 import { PrismaClient } from '@prisma/client';
 import setupSwagger from './config/swaggerConfig';
@@ -11,6 +12,19 @@ dotenv.config();
 
 const app = express();
 const prisma = new PrismaClient();
+
+//locale init
+app.use(i18n.init);
+//set locale from lang param
+app.use((req, res, next) => {
+  const lang = req.query.lang as string;
+  if (lang) {
+    res.setLocale(lang);
+  } else {
+    res.setLocale('en');
+  }
+  next();
+});
 
 app.use(express.json());
 app.use(v1Routes);

@@ -33,7 +33,7 @@ export class UserController {
 
     try {
       const createdUser = await this.userService.createUser(userData);
-      res.status(201).json({ message: 'User created successfully', result: handleUserResponse(createdUser) });
+      res.status(201).json({ message: res.__('user.USER_CREATED_SUCCESSFULLY'), result: handleUserResponse(createdUser) });
     } catch (error) {
         next(error);
     }
@@ -55,13 +55,17 @@ export class UserController {
         password : hashedPassword,
         updatedAt: new Date()
       };   
-      
-      const updatedUser = await this.userService.updateUser(userId, userDataToUpdate);
-      if (!updatedUser) {
-        res.status(404).json({ message: 'User not found' });
-        return;
-      }
-      res.status(200).json({ message: 'User updated successfully', result: handleUserResponse(updatedUser) }); 
+      const user = await this.userService.getUserById(userId);
+      if (user) {
+         const updatedUser = await this.userService.updateUser(userId, userDataToUpdate);
+         if(updatedUser){
+            res.status(200).json({ message: res.__('user.USER_UPDATED_SUCCESSFULLY'), result: handleUserResponse(updatedUser) }); 
+         }else{
+            res.status(404).json({ message: res.__('user.FAILED_TO_UPDATE_USER') });
+         }
+      }else{
+        res.status(404).json({ message: res.__('user.USER_NOT_FOUND') });
+      }     
      
     } catch (error) {
         next(error);
@@ -73,7 +77,7 @@ export class UserController {
     try {
 
       await this.userService.deleteUser(userId);     
-      res.status(200).json({ message: 'User Deleted Successfully'});
+      res.status(200).json({ message: res.__('user.USER_DELETED_SUCCESSFULLY')});
       
     } catch (error) {
         next(error);
@@ -85,9 +89,9 @@ export class UserController {
     try {
       const user = await this.userService.getUserById(userId);
       if (user) {
-        res.status(200).json({ result: handleUserResponse(user) });
+        res.status(200).json({ message: res.__('user.USER_FETCHED'), result: handleUserResponse(user) });
       } else {
-        res.status(404).json({ message: 'User not found' });
+        res.status(404).json({ message: res.__('user.USER_NOT_FOUND') });
       }
     } catch (error) {
         next(error);
@@ -98,9 +102,9 @@ export class UserController {
     try {
       const users = await this.userService.getAllUsers();      
       if (users) {
-        res.status(200).json({ result: handleUserResponse(users) });
+        res.status(200).json({ message: res.__('user.USERS_FETCHED'), result: handleUserResponse(users) });
       } else {
-        res.status(404).json({ message: 'No users available' });
+        res.status(404).json({ message: res.__('user.NO_USERS_AVAILABLE') });
       }
     } catch (error) {
         next(error);

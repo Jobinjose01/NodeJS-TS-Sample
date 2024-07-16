@@ -16,7 +16,7 @@ export const errorHandler = (err: any, req: Request, res: Response, next: NextFu
     return res.status(500).json({
       status: 'error',
       error: err.message,
-      message : 'Record Not found!'
+      message : res.__('user.RECORD_NOT_FOUND')
     });
   }
 

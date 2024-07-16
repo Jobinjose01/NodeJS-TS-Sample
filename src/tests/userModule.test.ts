@@ -1,7 +1,13 @@
 import request from 'supertest';
 import app from '../app';
+import i18n from 'i18n';
 
 describe('User Registration', () => {
+  
+  beforeAll(() => {
+    i18n.setLocale('en'); 
+  });
+
   it('should register a user successfully', async () => {
     const userData = {
       firstName: 'John',
@@ -17,7 +23,7 @@ describe('User Registration', () => {
       .expect(201);
 
     expect(response.body).toMatchObject({
-      message: 'User created successfully',
+      message: i18n.__('user.USER_CREATED_SUCCESSFULLY'),
       result: expect.objectContaining({
         firstName: 'John'
       })
@@ -47,7 +53,7 @@ describe('User Registration', () => {
         "errors": [
           {
             "field": "email",
-            "message": "Email is already in use",
+            "message": i18n.__('user.EMAIL_ALREADY_TAKEN'),
             "location": "body"
           }
         ]
@@ -62,7 +68,8 @@ describe('User Registration', () => {
         .get('/api/v1/user/6')
         .expect(200);
   
-      expect(response.body).toMatchObject({       
+      expect(response.body).toMatchObject({     
+        message: i18n.__('user.USER_FETCHED'), 
         result: expect.objectContaining({
           id: 6
         })
@@ -77,7 +84,7 @@ describe('User Registration', () => {
         .expect(404);
   
       expect(response.body).toMatchObject({       
-        message: 'User not found',
+        message: i18n.__('user.USER_NOT_FOUND') ,
       });
     });
   });
@@ -99,7 +106,7 @@ describe('User Registration', () => {
         .expect(200);
   
         expect(response.body).toMatchObject({
-          message: 'User updated successfully',
+          message: i18n.__('user.USER_UPDATED_SUCCESSFULLY'),
           result: expect.objectContaining({
             firstName: 'Jobin'
           })
@@ -119,11 +126,10 @@ describe('User Registration', () => {
       const response = await request(app)
         .put('/api/v1/user/600')
         .send(userData)
-        .expect(500);
+        .expect(404);
   
         expect(response.body).toMatchObject({
-          status: 'error',
-          message: "Record Not found!"
+          message:  i18n.__('user.USER_NOT_FOUND')
         });
     });
   });
