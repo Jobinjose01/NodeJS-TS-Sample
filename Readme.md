@@ -1,3 +1,17 @@
+A Node Based TypeScript boiler plate codebase for large scale application and micro-services based projects.
+This project setup has following features.
+
+* Docker Setup using Docker compose
+* Unit Testing using Jest Framework
+* Multilanguage support using i18n packages
+* Input validation using express validator
+* Service based architecture followed
+* Logging used with Winston package
+* API documentation using with Swagger
+* Linting using with ESLint
+* Code Formatting using with Prettier
+* Prisma ORM used
+
 ### Install dependancies 
 
 `npm install`
