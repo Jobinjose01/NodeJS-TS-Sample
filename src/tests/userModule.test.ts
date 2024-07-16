@@ -55,3 +55,75 @@ describe('User Registration', () => {
     });
   });
   
+  describe('User Get By ID', () => {
+    it('should fetch a user successfully', async () => {
+  
+      const response = await request(app)
+        .get('/api/v1/user/6')
+        .expect(200);
+  
+      expect(response.body).toMatchObject({       
+        result: expect.objectContaining({
+          id: 6
+        })
+      });
+    });
+  });
+  describe('User Get By ID', () => {
+    it('Failed User fetch ', async () => {
+  
+      const response = await request(app)
+        .get('/api/v1/user/600')
+        .expect(404);
+  
+      expect(response.body).toMatchObject({       
+        message: 'User not found',
+      });
+    });
+  });
+
+  describe('User Update', () => {
+    it('Update User record ', async () => {
+      
+      const userData = {
+        firstName: 'Jobin',
+        lastName: 'Jose',
+        email: 'jobin6@gmail.com',
+        phone: '1234567890',
+        password: 'password123'
+      };
+
+      const response = await request(app)
+        .put('/api/v1/user/6')
+        .send(userData)
+        .expect(200);
+  
+        expect(response.body).toMatchObject({
+          message: 'User updated successfully',
+          result: expect.objectContaining({
+            firstName: 'Jobin'
+          })
+        });
+    });
+
+    it('Failed User Update ', async () => {
+      
+      const userData = {
+        firstName: 'Jobin',
+        lastName: 'Jose',
+        email: 'jobin600@gmail.com',
+        phone: '1234567890',
+        password: 'password123'
+      };
+
+      const response = await request(app)
+        .put('/api/v1/user/600')
+        .send(userData)
+        .expect(500);
+  
+        expect(response.body).toMatchObject({
+          status: 'error',
+          message: "Record Not found!"
+        });
+    });
+  });
