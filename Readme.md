@@ -3,6 +3,7 @@ This project setup has following features.
 
 * Docker Setup using Docker compose
 * Unit Testing using Jest Framework
+* E2E Using Supertest
 * Multilanguage support using i18n packages
 * Input validation using express validator
 * Service based architecture followed
@@ -11,6 +12,7 @@ This project setup has following features.
 * Linting using with ESLint
 * Code Formatting using with Prettier
 * Prisma ORM used
+* Dependency Injection using Inversify
 
 ### Install dependancies 
 
