@@ -64,10 +64,10 @@
     "typescript": "^5.5.3"
   },
   "lint-staged": {
-    "**/*.js,jsx,ts,tsx": [
+    "src/**/*.js,jsx,ts,tsx": [
       "prettier --write"
     ],
-    "**/*.json,css,md": [
+    "src/**/*.json,css,md": [
       "prettier --write"
     ]
   },

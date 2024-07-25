@@ -10,6 +10,7 @@ interface ValidationError{
 }
 
 export const formatErrors = (errors:
+  
   ValidationError[]): FormattedError[] => {
   return errors.map((error: ValidationError) => ({
     field: error.path || 'unknown',
