@@ -1,73 +1,72 @@
 {
-    "openapi": "3.0.0",
-    "info": {
-      "title": "Developer API Documentation",
-      "version": "1.0.0",
-      "description": "API documentation for your project"
-    },
-    "servers": [
-      {
-        "url": "http://localhost:3000",
-        "description": "Development server"
-      }
-    ],
-    "paths": {
-      "/api/v1/user/register": {
-        "post": {
-          "summary": "Register a new user",
-          "tags": ["User"],
-          "requestBody": {
-            "required": true,
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/definitions/User"
-                }              
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Developer API Documentation",
+    "version": "1.0.0",
+    "description": "API documentation for your project"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Development server"
+    }
+  ],
+  "paths": {
+    "/api/v1/user/register": {
+      "post": {
+        "summary": "Register a new user",
+        "tags": ["User"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/User"
               }
             }
-          },
-          "responses": {
-            "201": {
-              "description": "User created successfully",
-              "content": {
-                "application/json": {
-                  "examples": {
-                    "success": {
-                      "summary": "Example of a successful response",
-                      "value": {
-                        "message": "User created successfully",
-                        "result": {
-                          "id": 5,
-                          "firstName": "John",
-                          "lastName": "Doe",
-                          "email": "john.doe3@example.com",
-                          "phone": "1234567890",
-                          "createdAt": "2024-07-10T13:45:27.487Z",
-                          "updatedAt": "2024-07-10T13:45:27.487Z"
-                        }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created successfully",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "success": {
+                    "summary": "Example of a successful response",
+                    "value": {
+                      "message": "User created successfully",
+                      "result": {
+                        "id": 5,
+                        "firstName": "John",
+                        "lastName": "Doe",
+                        "email": "john.doe3@example.com",
+                        "phone": "1234567890",
+                        "createdAt": "2024-07-10T13:45:27.487Z",
+                        "updatedAt": "2024-07-10T13:45:27.487Z"
                       }
                     }
                   }
                 }
               }
-            },
-            "400": {
-              "description": "Bad request",
-              "content": {
-                "application/json": {
-                  "examples": {
-                    "error": {
-                      "summary": "Example of an error response",
-                      "value": {
-                        "status": "fail",
-                        "errors": [
-                          {
-                            "field": "email",
-                            "message": "Email is already in use",
-                            "location": "body"
-                          }
-                        ]
-                      }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "error": {
+                    "summary": "Example of an error response",
+                    "value": {
+                      "status": "fail",
+                      "errors": [
+                        {
+                          "field": "email",
+                          "message": "Email is already in use",
+                          "location": "body"
+                        }
+                      ]
                     }
                   }
                 }
@@ -75,8 +74,9 @@
             }
           }
         }
-      },
-    "/api/v1/user/{id}": {      
+      }
+    },
+    "/api/v1/user/{id}": {
       "get": {
         "summary": "Get user by ID",
         "description": "Endpoint to retrieve a user by ID",
@@ -93,26 +93,26 @@
           "200": {
             "description": "User found",
             "content": {
-                "application/json": {
-                  "examples": {
-                    "success": {
-                      "summary": "Example of a successful response",
-                      "value": {
-                        "message": "User data fetched successfully",
-                        "result": {
-                          "id": 5,
-                          "firstName": "John",
-                          "lastName": "Doe",
-                          "email": "john.doe3@example.com",
-                          "phone": "1234567890",
-                          "createdAt": "2024-07-10T13:45:27.487Z",
-                          "updatedAt": "2024-07-10T13:45:27.487Z"
-                        }
+              "application/json": {
+                "examples": {
+                  "success": {
+                    "summary": "Example of a successful response",
+                    "value": {
+                      "message": "User data fetched successfully",
+                      "result": {
+                        "id": 5,
+                        "firstName": "John",
+                        "lastName": "Doe",
+                        "email": "john.doe3@example.com",
+                        "phone": "1234567890",
+                        "createdAt": "2024-07-10T13:45:27.487Z",
+                        "updatedAt": "2024-07-10T13:45:27.487Z"
                       }
                     }
                   }
                 }
               }
+            }
           },
           "404": {
             "description": "User not found"
@@ -123,9 +123,7 @@
         }
       },
       "put": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "summary": "Update an existing user",
         "description": "Updates a user with the given ID.",
         "operationId": "updateUser",
@@ -139,7 +137,7 @@
               "type": "integer",
               "format": "int64"
             }
-          }          
+          }
         ],
         "requestBody": {
           "required": true,
@@ -147,7 +145,7 @@
             "application/json": {
               "schema": {
                 "$ref": "#/definitions/User"
-              }              
+              }
             }
           }
         },
@@ -193,33 +191,31 @@
         }
       },
       "delete": {
-          "tags": [
-            "User"
-          ],
-          "summary": "Delete a user by ID",
-          "description": "Deletes a user with the given ID.",
-          "operationId": "deleteUser",
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "required": true,
-              "description": "ID of the user to delete",
-              "schema": {
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          ],
-          "responses": {
-            "204": {
-              "description": "User deleted successfully"
-            },
-            "500": {
-              "description": "Internal server error"
+        "tags": ["User"],
+        "summary": "Delete a user by ID",
+        "description": "Deletes a user with the given ID.",
+        "operationId": "deleteUser",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the user to delete",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
             }
           }
+        ],
+        "responses": {
+          "204": {
+            "description": "User deleted successfully"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
         }
+      }
     },
     "/api/v1/user/all": {
       "get": {
@@ -230,14 +226,14 @@
           "200": {
             "description": "Successful response",
             "content": {
-                "application/json": {
-                  "examples": {
-                    "success": {
-                      "summary": "Example of a successful response",
-                      "value": {
-                        "message": "User data fetched successfully",
-                        "result": [
-                          {
+              "application/json": {
+                "examples": {
+                  "success": {
+                    "summary": "Example of a successful response",
+                    "value": {
+                      "message": "User data fetched successfully",
+                      "result": [
+                        {
                           "id": 5,
                           "firstName": "John",
                           "lastName": "Doe",
@@ -245,8 +241,8 @@
                           "phone": "1234567890",
                           "createdAt": "2024-07-10T13:45:27.487Z",
                           "updatedAt": "2024-07-10T13:45:27.487Z"
-                          },
-                          {
+                        },
+                        {
                           "id": 6,
                           "firstName": "John",
                           "lastName": "Doe",
@@ -254,30 +250,25 @@
                           "phone": "1234567890",
                           "createdAt": "2024-07-10T13:45:27.487Z",
                           "updatedAt": "2024-07-10T13:45:27.487Z"
-                          }
+                        }
                       ]
-                      }
                     }
                   }
                 }
               }
+            }
           },
           "500": {
             "description": "Internal server error"
           }
         }
       }
-    } 
+    }
   },
   "definitions": {
     "User": {
       "type": "object",
-      "required": [
-        "firstName",
-        "lastName",
-        "email",
-        "phone"
-      ],
+      "required": ["firstName", "lastName", "email", "phone"],
       "properties": {
         "firstName": {
           "type": "string",
@@ -342,5 +333,4 @@
       }
     }
   }
-  }
-  
+}

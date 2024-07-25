@@ -35,6 +35,24 @@ This project setup has following features.
 `npm run test`
 
 
+### Linting and Formatting
+
+Check lint errors
+
+`npm run lint:check`
+
+Fix lint errors
+
+`npm run lint:fix`
+
+Check the format
+
+`npm run format:check`
+
+Fix format errors
+
+`npm run format:fix`
+
 ### Docker Setup
 
 `docker compose up -d --build`

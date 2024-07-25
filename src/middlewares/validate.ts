@@ -7,7 +7,7 @@ export const validate = (req: Request, res: Response, next: NextFunction) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({
       status: 'fail',
-      errors: formatErrors(errors.array())
+      errors: formatErrors(errors.array()),
     });
   }
   next();

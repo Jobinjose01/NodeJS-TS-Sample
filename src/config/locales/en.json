@@ -1,15 +1,14 @@
 {
-    "user": {
-      "USER_NOT_FOUND": "User not found",
-      "RECORD_NOT_FOUND": "Record Not found!",
-      "NO_USERS_AVAILABLE": "No users available",
-      "EMAIL_ALREADY_TAKEN": "Email is already in use",
-      "FAILED_TO_UPDATE_USER": "Failed to update user",
-      "USER_CREATED_SUCCESSFULLY": "User created successfully",
-      "USER_UPDATED_SUCCESSFULLY": "User updated successfully",
-      "USER_DELETED_SUCCESSFULLY": "User Deleted Successfully",
-      "USERS_FETCHED": "Users data fetched successfully",
-      "USER_FETCHED": "User data fetched successfully"
-    }
+  "user": {
+    "USER_NOT_FOUND": "User not found",
+    "RECORD_NOT_FOUND": "Record Not found!",
+    "NO_USERS_AVAILABLE": "No users available",
+    "EMAIL_ALREADY_TAKEN": "Email is already in use",
+    "FAILED_TO_UPDATE_USER": "Failed to update user",
+    "USER_CREATED_SUCCESSFULLY": "User created successfully",
+    "USER_UPDATED_SUCCESSFULLY": "User updated successfully",
+    "USER_DELETED_SUCCESSFULLY": "User Deleted Successfully",
+    "USERS_FETCHED": "Users data fetched successfully",
+    "USER_FETCHED": "User data fetched successfully"
+  }
 }
-  

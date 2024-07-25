@@ -5,7 +5,7 @@ i18n.configure({
   locales: ['en', 'es'],
   directory: join(__dirname, 'locales'),
   defaultLocale: 'en',
-  register: global
+  register: global,
 });
 
 // Set the default locale to English for tests
